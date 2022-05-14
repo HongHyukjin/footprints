@@ -136,7 +136,7 @@ export default {
     isValidAll(){  // 최종 양식 확인
       if(this.Id1 != "" && this.Id2 != "" && this.Pw1 != "" && this.Pw2 != "" &&
       this.Nick != "" && this.Phone != "" && this.Area != ""){
-        if(!this.isValidNick() && !this.isDiffrentPw && !this.isValidPw && !this.isDiffrentCode){
+        if(this.isValidPw && !this.isDiffrentPw && this.isValidNick() && !this.isDiffrentCode){
           return true;
         }
         return false;
@@ -188,7 +188,7 @@ export default {
       console.log(this.SysCode);
       //
     },
-    checkCode() {
+    checkCode() { // 인증번호와 사용자가 입력한 인증번호가 같은지 확인
       if(this.SysCode == this.UserCode && this.UserCode != "") {
         alert("인증번호가 동일합니다.")
         this.isDiffrentCode = false;
@@ -196,7 +196,7 @@ export default {
       else
         alert("인증번호가 동일하지 않습니다.");
     },
-    searchArea() {
+    searchArea() {  // 지역 검색
       new window.daum.Postcode({
         oncomplete: (data) => {
           this.Area = data.roadAddress;
