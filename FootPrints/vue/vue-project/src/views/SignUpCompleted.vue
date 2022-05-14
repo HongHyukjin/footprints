@@ -62,6 +62,7 @@ button{
     color: white;
     font-family: 'Noto Sans KR', sans-serif;
     border-radius: 10px;
+    cursor: pointer;
 }
 #login{
     background-color: #7aab85;

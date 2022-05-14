@@ -212,7 +212,6 @@ body {
   text-align: center;
   font-family: 'Noto Sans KR', sans-serif;
 }
-
 .header{
     /* background-color: #f7f7f7; */
     width: 100%;
@@ -238,7 +237,6 @@ body {
 h3{
     display: block;
 }
-
 #wrap {
     width: 360px;
     margin: 0 auto;

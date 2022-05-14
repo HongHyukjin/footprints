@@ -5,7 +5,7 @@
     <router-link to="/home" class="logo"><img src="../assets/logo.png">발자취</router-link>
     <div>
         <router-link to="/itemlist" class="item"><button>배달 같이하기</button></router-link>
-        <router-link to="/login" class="item">로그인</router-link> | 
+        <router-link to="/login" class="item">로그인</router-link> 
         <router-link to="/signup" class="item">회원가입</router-link>
     </div>
   </div>
@@ -53,7 +53,7 @@ header{
     text-decoration: none;
 }
 .item button{
-margin: 0px 15px;
+    margin: 0px 15px;
     width: 106px;
     height: 32px;
     background-color: #7aab85;
