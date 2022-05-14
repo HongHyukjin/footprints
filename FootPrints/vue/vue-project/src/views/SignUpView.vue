@@ -63,18 +63,18 @@
                     <label>휴대폰 번호</label>
                     <div class="phoneGroup">
                         <span class="phoneItem"><input id='userPhone' v-model="Phone" type="text" placeholder="전화번호"></span>
-                        <span class="phoneItem"><button type="button" class="btn" v-on:click="go">인증번호 받기</button></span>
+                        <span class="phoneItem"><button type="button" class="btn" v-on:click="getCode">인증번호 받기</button></span>
                     </div>
                     <div class="phoneGroup">
-                        <span class="phoneItem"><input id='certiNum' type="text" placeholder="인증번호"></span>
-                        <span class="phoneItem"><button type="button" class="btn">확인</button></span>
+                        <span class="phoneItem"><input id='certiNum' v-model="UserCode" type="text" placeholder="인증번호"></span>
+                        <span class="phoneItem"><button type="button" class="btn" v-on:click="checkCode">확인</button></span>
                     </div>
                 </div>
 
                 <div class="inputDiv">
                     <label>지역설정</label>
-                    <input id='userArea' v-model="Area" type="text" placeholder="지역명(ex. 성북구 정릉동)">
-                    <input id='RuserArea' type="text">
+                    <button type="button" class="btn" v-on:click="searchArea">주소 검색</button>
+                    <input id='userArea' v-model="Area" type="text" readonly placeholder="도로명주소(ex. 서울 성북구 서경로 124)">
                 </div>
                 <button type="submit" v-on:click.prevent="submitData">회원가입하기</button>
             </form>
@@ -95,10 +95,13 @@ export default {
       Pw2: "",
       Nick: "",
       Phone: "",
+      SysCode: "",
+      UserCode: "",
       Area: "",
       isValidEmail: true,
       isValidPw: true,
       isDiffrentPw: false,
+      isDiffrentCode: true,
     }
   },
   methods:{
@@ -133,7 +136,7 @@ export default {
     isValidAll(){  // 최종 양식 확인
       if(this.Id1 != "" && this.Id2 != "" && this.Pw1 != "" && this.Pw2 != "" &&
       this.Nick != "" && this.Phone != "" && this.Area != ""){
-        if(!this.isValidNick() && !this.isDiffrentPw && !this.isValidPw){
+        if(!this.isValidNick() && !this.isDiffrentPw && !this.isValidPw && !this.isDiffrentCode){
           return true;
         }
         return false;
@@ -177,6 +180,29 @@ export default {
         return true;
       }
     },
+    getCode() {  // 페이지에서 사용자 휴대폰으로 인증번호 전송
+      alert("인증번호가 전송되었습니다.");
+
+      // 아래 코드를 사용자 휴대폰으로 인증번호를 보내는 코드로 수정해야 합니다!
+      this.SysCode = Math.floor(Math.random() * 900001) + 100000;
+      console.log(this.SysCode);
+      //
+    },
+    checkCode() {
+      if(this.SysCode == this.UserCode && this.UserCode != "") {
+        alert("인증번호가 동일합니다.")
+        this.isDiffrentCode = false;
+      }
+      else
+        alert("인증번호가 동일하지 않습니다.");
+    },
+    searchArea() {
+      new window.daum.Postcode({
+        oncomplete: (data) => {
+          this.Area = data.roadAddress;
+        }
+      }).open();
+    }
   }
 }
 </script>
@@ -309,6 +335,7 @@ button{
 }
 .phoneItem:nth-child(1) { flex-grow: 3;}
 .phoneItem:nth-child(2) { flex-grow: 1;}
-
-
+#userArea {
+  cursor: default;
+}
 </style>
