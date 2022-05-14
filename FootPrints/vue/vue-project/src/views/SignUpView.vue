@@ -27,9 +27,10 @@
                         <span>
                             <input id='userId1' class="idItem" v-model="Id1" type="text" placeholder="아이디" required>
                         </span>
-                        <span class="idItem">@</span>
+                        <span class="idItem" id="sign">@</span>
                         <span class="idItem">
-                        <select name="domain" id='userId2' v-model="Id2">
+                        <select name="domain" id='userId2' v-model="Id2" v-on:focusout="checkEmail">
+                            <option value="-------선택-------" selected="selected" disabled hidden>-------선택-------</option>
                             <option value="naver.com">naver.com</option>
                             <option value="gmail.com">gmail.com</option>
                             <option value="skuniv.ac.kr">skuniv.ac.kr</option>
@@ -38,34 +39,35 @@
                     </div>
                 </div>
 
-                <div class="inputDiv" v-bind:class="{errorType:isDiferrentPw}">
+                <div class="inputDiv" v-bind:class="{errorType:!isValidPw}">
                     <label>비밀번호</label>
-                    <input id='password1' v-on:focusout="checkPw"  autocomplete="off"
+                    <input id='password1' v-on:focusout="checkPw"  autocomplete="off" maxlength="20"
                     v-model="Pw1" type="password" placeholder="비밀번호 (영어, 숫자, 특수문자 포함 8~20자)" required>
+                    <span class="errortype" v-if="!isValidPw">비밀번호는 영어, 숫자, 특수문자 포함 8~20자여야 합니다.</span>
                 </div>
 
-                <div class="inputDiv" v-bind:class="{errorType:isDiferrentPw}">
+                <div class="inputDiv" v-bind:class="{errorType:isDiffrentPw}">
                     <label>비밀번호 확인</label>
-                    <input id='password2' v-on:focusout="checkPw"  autocomplete="off"
+                    <input id='password2' v-on:focusout="compPw"  autocomplete="off" maxlength="20"
                     v-model="Pw2" type="password" placeholder="비밀번호 재입력" required>
-                    <span class="errortype" v-if="isDiferrentPw">비밀번호가 일치하지 않습니다.</span>
+                    <span class="errortype" v-if="isDiffrentPw">비밀번호가 일치하지 않습니다.</span>
                 </div>
 
-                <div class="inputDiv" v-bind:class="{errorType:isValidNick()}">
+                <div class="inputDiv" v-bind:class="{errorType:!isValidNick()}">
                     <label>닉네임</label>
                     <input id='nickname' v-model="Nick" type="text" placeholder="별명 (2~8자)" required>
-                    <span class="errortype" v-if="isValidNick()">닉네임은 2~8글자이어야 합니다.</span>
+                    <span class="errortype" v-if="!isValidNick()">닉네임은 2~8글자여야 합니다.</span>
                 </div>
 
                 <div class="inputDiv">
                     <label>휴대폰 번호</label>
                     <div class="phoneGroup">
                         <span class="phoneItem"><input id='userPhone' v-model="Phone" type="text" placeholder="전화번호"></span>
-                        <span class="phoneItem"><button class="btn">인증번호 받기</button></span>
+                        <span class="phoneItem"><button type="button" class="btn" v-on:click="go">인증번호 받기</button></span>
                     </div>
                     <div class="phoneGroup">
                         <span class="phoneItem"><input id='certiNum' type="text" placeholder="인증번호"></span>
-                        <span class="phoneItem"><button class="btn">확인</button></span>
+                        <span class="phoneItem"><button type="button" class="btn">확인</button></span>
                     </div>
                 </div>
 
@@ -88,13 +90,15 @@ export default {
   data(){
     return {
       Id1: "",
-      Id2: "",
+      Id2: "-------선택-------",
       Pw1: "",
       Pw2: "",
       Nick: "",
       Phone: "",
       Area: "",
-      isDiferrentPw: false
+      isValidEmail: true,
+      isValidPw: true,
+      isDiffrentPw: false,
     }
   },
   methods:{
@@ -129,7 +133,7 @@ export default {
     isValidAll(){  // 최종 양식 확인
       if(this.Id1 != "" && this.Id2 != "" && this.Pw1 != "" && this.Pw2 != "" &&
       this.Nick != "" && this.Phone != "" && this.Area != ""){
-        if(!this.isValidNick() && !this.isDiferrentPw){
+        if(!this.isValidNick() && !this.isDiffrentPw && !this.isValidPw){
           return true;
         }
         return false;
@@ -138,21 +142,41 @@ export default {
         return false;
       }
     },
-    checkPw(){      // 비밀번호 & 비밀번호 확인란 일치 여부
+    checkEmail() {
+      if (this.Id2 == "-------선택-------")
+        this.isValidEmail = false;
+      else
+        this.isValidEmail = true;
+    },
+    checkPw() {   // 비밀번호 형식이 올바른지 확인
+      const pattern1 = /[0-9]/;
+      const pattern2 = /[a-zA-Z]/;
+      const pattern3 = /[~!@#\\$%<>^&*]/;
+
+      const pwd = this.Pw1;
+      if(pwd != ""){
+        if (pwd.length < 8 || !pattern1.test(pwd) || !pattern2.test(pwd) || !pattern3.test(pwd))
+          this.isValidPw = false;
+        else
+          this.isValidPw = true;
+      }
+    },
+    compPw(){      // 비밀번호 & 비밀번호 확인란 일치 여부
       if(this.Pw1 != "" && this.Pw2 != ""){
-        this.isDiferrentPwj = (this.Pw1 != this.Pw2) ? true : false;
+        this.isDiffrentPw = (this.Pw1 != this.Pw2) ? true : false;
       }
     },
     isValidNick(){   // 닉네임 형식 판단
       if(this.Nick != ""){
-        if(this.Nick.length >=2 && this.Nick.length <= 8){
-          return false;
-        }
-        else{
+        if(this.Nick.length >=2 && this.Nick.length <= 8)
           return true;
-        }
+        else
+          return false;
       }
-    }
+      else {
+        return true;
+      }
+    },
   }
 }
 </script>
@@ -264,6 +288,7 @@ button{
     padding: 8px 15px 9px;
     margin: 0 0 7px 5px;
     border-radius: 15px;
+    cursor: pointer;
 }
 .idGroup{
     display: flex;
@@ -273,7 +298,10 @@ button{
 .idItem { 
   flex-grow: 1;
   }
-
+#sign {
+  padding: 8px;
+  padding-bottom: 15px;
+}
 .phoneGroup{
     display: flex;
     align-items: center;
