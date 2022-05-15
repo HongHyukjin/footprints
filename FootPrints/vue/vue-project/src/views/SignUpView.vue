@@ -76,7 +76,7 @@
                     <button type="button" class="btn" v-on:click="searchArea">주소 검색</button>
                     <input id='userArea' v-model="Area" type="text" readonly placeholder="도로명주소(ex. 서울 성북구 서경로 124)">
                 </div>
-                <button type="submit" v-on:click.prevent="submitData">회원가입하기</button>
+                <button type="submit" class="btn" v-on:click.prevent="submitData">회원가입하기</button>
             </form>
         </div>
     </div>

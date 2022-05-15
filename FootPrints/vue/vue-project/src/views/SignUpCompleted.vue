@@ -15,23 +15,22 @@
 import { mapGetters } from 'vuex';
 
 export default {
-    computed:{
-        ...mapGetters([
-        'GET_MEMBER'
-        ])
-    },
-    // created(){
-    //     axios.get("http://localhost:8080/signup-completed", {
-    //         params: {
-    //             nick: 12345
-    //             }
-    //         })
-    //     .then(response=>{
-    //         console.log(response)
-    //     });
-    // }
+  computed:{
+    ...mapGetters([
+      'GET_MEMBER'
+    ])
+  },
+  // created(){
+  //     axios.get("http://localhost:8080/signup-completed", {
+  //         params: {
+  //             nick: 12345
+  //             }
+  //         })
+  //     .then(response=>{
+  //         console.log(response)
+  //     });
+  // }
 }
-
 </script>
 
 <style scoped>

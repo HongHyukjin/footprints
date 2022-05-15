@@ -2,10 +2,17 @@
 	<div>
 	<div id="wrap">
 		<router-link to="/home" class="logo"><img src="../assets/logo.png">발자취</router-link>
+    
       <div class="Div">
-         <input id="email" v-model="email" placeholder="이메일">
-         <input id="password" v-model="password" placeholder="비밀번호">
-         <button type="submit" v-on:click.prevent="login">로그인</button>
+        <div v-bind:class="{errorType:!isValidEmail}">
+          <input id="email" v-on:focusout="checkEmail" autocomplete="off" v-model="email" type="text" placeholder="이메일" required>
+        </div>
+
+        <div v-bind:class="{errorType:!isValidPassword}">
+          <input id="password" v-on:focusout="checkPassword" autocomplete="off" maxlength="20" v-model="password" type="password" placeholder="비밀번호" required>
+        </div>
+        
+        <button type="submit" v-on:click.prevent="login">로그인</button>
       </div>
       <div class="Div">
          <router-link to="/findID" class="link">아이디 찾기</router-link>
@@ -30,22 +37,46 @@ export default {
 	data() {
 		return {
 			email: "",
-			password: ""
+			password: "",
+      isValidEmail: true,
+      isValidPassword: true,
 		}
 	},
-   methods: {
-      login() {
+  methods: {
+    login() {
 			if (this.submitData()){
 				alert("로그인이 완료되었습니다.")
 				this.$router.replace("/home");
 			}
-         else 
+      else 
 				alert("[로그인 실패]\n이메일 또는 비밀번호 오류입니다.")
-      },
+    },
 		submitData() {	// 이 함수 코드를 구현해야 합니다!!
 			console.log(this.email, this.password);
 			return true;
+    },
+    checkEmail() {  // 간단하게 구현한 이메일 형식 검사
+      const email = this.email;
+      if (email != ""){
+        if (email.includes('@') && email.includes('.'))
+          this.isValidEmail = true;
+        else
+          this.isValidEmail = false;
       }
+    },
+    checkPassword() {
+      const pattern1 = /[0-9]/;
+			const pattern2 = /[a-zA-Z]/;
+			const pattern3 = /[~!@#\\$%<>^&*]/;
+
+      const pwd = this.password;
+      if (pwd != ""){
+        if (pwd.length < 8 || !pattern1.test(pwd) || !pattern2.test(pwd) || !pattern3.test(pwd))
+          this.isValidPassword = false;
+        else
+          this.isValidPassword = true;
+      }
+    }
    }
 }
 </script>
@@ -73,6 +104,11 @@ export default {
     padding: 8px 15px 9px;
     justify-content: space-between;
 }
+.errorType input{
+  background: #fff6f6;
+  outline: none;
+  border-color:#eb7373;
+}
 input{
     outline: none;
     width: 100%;
@@ -83,7 +119,7 @@ input{
     padding: 8px 15px 9px;
 }
 #email{
-    border-bottom: 0px;
+    border-bottom: 1px;
     border-radius: 10px 10px 0px 0px;
 }
 #password{
