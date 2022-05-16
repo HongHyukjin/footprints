@@ -55,7 +55,7 @@ export default {
 			console.log(this.email, this.password);
 			return true;
     },
-    checkEmail() {  // 간단하게 구현한 이메일 형식 검사
+    checkEmail() {  // 임시로 구현한 이메일 형식 검사
       const email = this.email;
       if (email != ""){
         if (email.includes('@') && email.includes('.'))

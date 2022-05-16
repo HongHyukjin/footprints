@@ -7,6 +7,7 @@ import SignUpView from '../views/SignUpView.vue'
 import SignUpCompleted from '../views/SignUpCompleted'
 import FindID from '../views/FindID'
 import FindPW from '../views/FindPW'
+import GetID from '../views/GetID'
 
 const routes = [
     //path: url에 대한 정보
@@ -18,7 +19,8 @@ const routes = [
     {   path: '/signup', component: SignUpView  },
     {   path: '/signup-completed', component: SignUpCompleted  },
     {   path: '/findID', component: FindID  },
-    {   path: '/findPW', component: FindPW  }
+    {   path: '/findPW', component: FindPW  },
+    {   path: '/getID', component: GetID  },
 ]
 
 export const router = new createRouter({

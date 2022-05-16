@@ -1,7 +1,7 @@
 <template>
   <div>
-      <tool-bar></tool-bar>
-      비밀번호 찾기 뷰입니당
+    <tool-bar></tool-bar>
+    비밀번호 찾기 뷰입니당
   </div>
 </template>
 
@@ -9,9 +9,9 @@
 import ToolBar from '../components/ToolBar.vue'
 
 export default {
-    components:{
-        ToolBar,
-    }
+   components:{
+    ToolBar,
+  }
 }
 </script>
 
