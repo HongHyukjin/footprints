@@ -12,6 +12,8 @@
 </template>
 
 <script>
+import emailjs from 'emailjs-com';
+
 export default {
 	data() {
 		return {
@@ -26,10 +28,20 @@ export default {
 	methods: {
 		getCode() {
 			if (this.email != "") {
-				// 1. 존재하는 메일인지 확인 후 이메일로 인증번호 보내는 코드로 수정 -----------------------------
+				// 1. 존재하는 메일인지 확인해야함 --------------------------------------------
 				this.sysCode = Math.floor(Math.random() * 900001) + 100000;
-				console.log(this.email, this.sysCode);
-				// ------------------------------------------------------------------------------------------------
+				let templateParams  = { 
+					user_email: this.email,
+					sys_code: this.sysCode,
+				}
+
+				emailjs.init('REMuhzEQAisDSZ2hk');
+				emailjs.send('email', 'template_q0r3oy4', templateParams)
+        .then((result) => {
+            console.log('SUCCESS!', result.text);
+        }, (error) => {
+            console.log('FAILED...', error.text);
+        });
 
 				this.inputVisible = true;
 				this.getBtnVisible = false;
@@ -40,8 +52,7 @@ export default {
 			}
 		},
 		checkCode() {
-			console.log(this.sysCode, this.userCode);
-			if (this.sysCode == this.userCode && this.userCode != "") {
+			if (this.sysCode == parseInt(this.userCode) && this.userCode != "") {
 				// 2.getPW 뷰로 넘어갈 때 입력받은 이메일도 넘겨야함---------------------------------------
 				this.$router.replace("/changePW");
 			}
