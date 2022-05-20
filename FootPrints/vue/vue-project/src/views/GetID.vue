@@ -1,5 +1,4 @@
 <template>
-  <!-- <tool-bar></tool-bar> -->
   <div id="wrap">
     <div class="Div">
       <label>고객님의 정보와 일치하는 아이디입니다.</label>
@@ -13,12 +12,7 @@
 </template>
 
 <script>
-//import ToolBar from '../components/ToolBar.vue'
-
 export default {
-  components:{
-    // ToolBar,
-  },
 	data() {
 		return {
       email: "abcd@naver.com"

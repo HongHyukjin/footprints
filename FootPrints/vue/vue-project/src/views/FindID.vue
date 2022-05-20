@@ -1,5 +1,4 @@
 <template>
-	<!-- <tool-bar></tool-bar> -->
   <div id="wrap">
 		<router-link to="/home" class="logo"><img src="../assets/logo.png">발자취</router-link>
 		<div class="Div">
@@ -13,12 +12,7 @@
 </template>
 
 <script>
-//import ToolBar from '../components/ToolBar.vue'
-
 export default {
-  components:{
-    //ToolBar,
-  },
 	data() {
 		return {
 			phone: "",
@@ -31,7 +25,8 @@ export default {
 	},
 	methods: {
 		getCode() {
-			if (this.phone != "" && this.phone.length == 11) {
+			let check = /^[0-9]+$/;
+			if (this.phone != "" && this.phone.length == 11 && check.test(this.phone)) {
 				// 1.휴대폰으로 인증번호 보내는 코드로 수정 ------------------------------------------------------
 				this.sysCode = Math.floor(Math.random() * 900001) + 100000;
 				console.log(this.phone, this.sysCode);
