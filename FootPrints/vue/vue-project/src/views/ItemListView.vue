@@ -2,6 +2,7 @@
   <div>
       <tool-bar></tool-bar>
       배달 리스트 뷰 ~.~
+      <router-link to="/writing" class="link">글 작성</router-link> 
   </div>
 </template>
 
