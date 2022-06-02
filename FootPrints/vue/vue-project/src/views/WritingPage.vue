@@ -203,7 +203,7 @@ hr{
 }
 #contents{
   font-size: 15px;
-  height: 350px;
+  height: 400px;
   width: 300px;
   padding: 5px;
   border: none;
