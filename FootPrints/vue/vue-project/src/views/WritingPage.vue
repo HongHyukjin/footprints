@@ -43,7 +43,7 @@
             <input v-model="placeName" v-if="inputVisible" placeholder="장소 별명: ex) 세븐일레븐 앞">
           </div>
         </div>
-        <div style="float:right; width:300px;">
+        <div style="float:right; width:350px;">
           <input v-model="title" id="title" placeholder="제목을 입력하세요.">
           <hr>
           <textarea v-model="contents" id="contents" type="text" placeholder="배달팁, 최소주문 금액을 적어주세요!"></textarea>
@@ -162,8 +162,8 @@ export default {
   padding: 80px 0;
 }
 #wrap2 {
-    width: 700px;
-    height: 550px;
+    width: 800px;
+    height: 570px;
     padding: 40px 50px 30px;
     margin: 0px auto;
     border-radius: 30px;
@@ -221,11 +221,11 @@ button {
 }
 .kmap{
   margin-top: 20px;
-  width: 350px;
-  height: 200px;
+  width: 400px;
+  height: 220px;
 }
 #place > input {
-  margin: 15px 30px 0;
+  margin: 15px 60px 0;
   text-align: center;
 }
 </style>

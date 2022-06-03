@@ -10,6 +10,7 @@ import FindPW from '../views/FindPW'
 import GetID from '../views/GetID'
 import ChangePW from '../views/ChangePW'
 import WritingPage from '../views/WritingPage'
+import ViewDetails from '../views/ViewDetails'
 
 const routes = [
     //path: url에 대한 정보
@@ -25,6 +26,7 @@ const routes = [
     {   path: '/getID', component: GetID  },
     {   path: '/changePW', component: ChangePW  },
     {   path: '/writing', component: WritingPage  },
+    {   path: '/viewDetails', component: ViewDetails  },
 ]
 
 export const router = new createRouter({
