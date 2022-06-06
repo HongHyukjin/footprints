@@ -35,8 +35,8 @@ export default {
 					sys_code: this.sysCode,
 				}
 
-				emailjs.init('REMuhzEQAisDSZ2hk');
-				emailjs.send('email', 'template_q0r3oy4', templateParams)
+				emailjs.init('vRkhLOuF_vA7-HcM9');
+				emailjs.send('email', 'template_ecvcwyw', templateParams)
         .then((result) => {
             console.log('SUCCESS!', result.text);
         }, (error) => {

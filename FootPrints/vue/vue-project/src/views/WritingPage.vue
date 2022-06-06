@@ -204,7 +204,7 @@ hr{
 #contents{
   font-size: 15px;
   height: 400px;
-  width: 300px;
+  width: 350px;
   padding: 5px;
   border: none;
   outline: none;
