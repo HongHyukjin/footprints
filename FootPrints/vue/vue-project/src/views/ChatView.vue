@@ -4,10 +4,12 @@
     <div id="wrap">
       <div id="wrap2">
         <div style="float:left; width:25%; height:100%;">
+
           <div id="chat_list_header">
             <img src="../assets/people.jpg">
             <h5>밥프렌즈</h5>
           </div>
+
           <ul class="chat_list">
             <li v-for="(data, index) in chatData" :key=data v-bind:id="[`${index}`]" v-on:mousedown.left="clickLeft"
               v-on:mousedown.right="clickRight" v-on:contextmenu.prevent class="chat_list_link">
@@ -19,20 +21,26 @@
             </li>
             <!-- <li v-bind:class=chekcedArr[0]> -->
           </ul>
+
         </div>
+        
         <div id="wrapRight">
+
           <div id="content_list_header">
             <img :src="chatData[checkedNum]['src']">
             <h3>{{ chatData[checkedNum]['title'] }}</h3>
             <p v-for="name in chatData[checkedNum]['userNames']" :key=name>{{ name }}</p>
           </div>
+
           <div id="content_message">
             <!-- <p id="chatname" v-for="chatname in chatData[checkedNum]['chatNames']" :key=chatname>{{ chatname }}</p> -->
             <p id="chatlog" v-for="chatlog in chatData[checkedNum]['chatLogs']" :key=chatlog>{{ chatlog }}</p>
           </div>
+
           <div id="content_input">
             <input type="text" placeholder="메세지를 입력해주세요." v-on:keyup.enter="sendMessage" v-model="inputText">
           </div>
+
         </div>
       </div>
     </div>
@@ -84,6 +92,7 @@ export default {
   created() {
     this.dataNum = this.chatData.length;
 
+    // 이부분 수정 필요..
     this.chekcedArr[this.checkedNum] = "on"
     for (var i = 0; i < this.dataNum; i++) {
       if (i != 0) {
@@ -103,7 +112,7 @@ export default {
       console.log("clickRight");
     },
     sendMessage() {
-      this.chatData[this.checkedNum]['chatNames'].push("홍길동");
+      this.chatData[this.checkedNum]['chatNames'].push("홍길동"); // 내 이름
       this.chatData[this.checkedNum]['chatLogs'].push(this.inputText);
       this.chatData[this.checkedNum]['lastMessage'] = this.chatData[this.checkedNum]['chatLogs'][this.chatData[this.checkedNum]['chatLogs'].length - 1];
       this.inputText = "";
@@ -244,7 +253,7 @@ export default {
 #content_message>#chatlog {
   font-size: 15px;
   border-radius: 20px;
-  background-color: rgba(255, 176, 176, 0.61);
+  background-color: rgba(255, 190, 190, 0.61);
   width: 250px;
   padding: 15px 20px;
   margin: 15px 0px;
