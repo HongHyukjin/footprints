@@ -17,39 +17,7 @@
                 <p class="info_message">{{ chatData[index]['lastMessage'] }}</p>
               </div>
             </li>
-
-            <!--
-            <li v-bind:class=chekcedArr[0]>
-              <a id=0 class="chat_list_link" v-on:mousedown.left="clickLeft" v-on:mousedown.right="clickRight"
-                v-on:contextmenu.prevent>
-                <div class="info_area">
-                  <img class="info_pic" :src="chatData[0]['src']">
-                  <h3 class="info_title">{{ chatData[0]['title'] }}</h3>
-                  <p class="info_message">{{ chatData[0]['lastMessage'] }}</p>
-                </div>
-              </a>
-            </li>
-            <li v-bind:class=chekcedArr[1]>
-              <a id=1 class="chat_list_link" v-on:mousedown.left="clickLeft" v-on:mousedown.right="clickRight"
-                v-on:contextmenu.prevent>
-                <div class="info_area">
-                  <img class="info_pic" :src="chatData[1]['src']">
-                  <h3 class="info_title">{{ chatData[1]['title'] }}</h3>
-                  <p class="info_message">{{ chatData[1]['lastMessage'] }}</p>
-                </div>
-              </a>
-            </li>
-            <li v-bind:class=chekcedArr[2]>
-              <a id=2 class="chat_list_link" v-on:mousedown.left="clickLeft" v-on:mousedown.right="clickRight"
-                v-on:contextmenu.prevent>
-                <div class="info_area">
-                  <img class="info_pic" :src="chatData[2]['src']">
-                  <h3 class="info_title">{{ chatData[2]['title'] }}</h3>
-                  <p class="info_message">{{ chatData[2]['lastMessage'] }}</p>
-                </div>
-              </a>
-            </li>
-            -->
+            <!-- <li v-bind:class=chekcedArr[0]> -->
           </ul>
         </div>
         <div id="wrapRight">
@@ -59,7 +27,8 @@
             <p v-for="name in chatData[checkedNum]['userNames']" :key=name>{{ name }}</p>
           </div>
           <div id="content_message">
-            <p v-for="message in chatData[checkedNum]['messages']" :key=message>{{ message }}</p>
+            <!-- <p id="chatname" v-for="chatname in chatData[checkedNum]['chatNames']" :key=chatname>{{ chatname }}</p> -->
+            <p id="chatlog" v-for="chatlog in chatData[checkedNum]['chatLogs']" :key=chatlog>{{ chatlog }}</p>
           </div>
           <div id="content_input">
             <input type="text" placeholder="메세지를 입력해주세요." v-on:keyup.enter="sendMessage" v-model="inputText">
@@ -86,22 +55,25 @@ export default {
           src: require('../assets/pizza.png'),
           title: '미스터피자',
           userNames: ['홍길동', '김갑동', '김영희', '박철수'],
-          messages: ['무슨 피자 시킬까요?', '전 불고기 피자가 좋아요.', '하와이안 피자는 어때요?', '음..', 'ㅋㅋㅋㅋ', '그건 쫌..'],
+          chatNames: ['김영희', '박철수', '김갑동', '김영희', '김영희'],
+          chatLogs: ['무슨 피자 시킬까요?', '전 불고기 피자가 좋아요.', '하와이안 피자는 어때요?', '음..', 'ㅋㅋㅋㅋ', '그건 쫌..'],
           lastMessage: '',
         },
         {
           src: require('../assets/chicken.png'),
           title: '교촌치킨',
-          userNames: ['김지원', '이지원', '박지원'],
-          messages: ['temp'],
-          lastMessage: '허니콤보 존맛',
+          userNames: ['홍길동', '김지원', '이지원', '박지원'],
+          chatNames: ['이지원', '김지원'],
+          chatLogs: ['ㅎㅇ', '허니콤보 레드콤보'],
+          lastMessage: '',
         },
         {
           src: require('../assets/shavedIce.png'),
           title: '설빙',
-          userNames: ['어피치', '네오', '라이언'],
-          messages: ['temp'],
-          lastMessage: '치즈빙수 먹고싶다',
+          userNames: ['홍길동', '어피치', '네오', '라이언'],
+          chatNames: ['어피치', '네오'],
+          chatLogs: ['치즈빙수 먹고싶다', 'ㅋㅋㅋ'],
+          lastMessage: '',
         },
       ],
       chekcedArr: [],
@@ -117,7 +89,7 @@ export default {
       if (i != 0) {
         this.chekcedArr[i] = "";
       }
-      this.chatData[i]['lastMessage'] = this.chatData[i]['messages'][this.chatData[i]['messages'].length - 1];
+      this.chatData[i]['lastMessage'] = this.chatData[i]['chatLogs'][this.chatData[i]['chatLogs'].length - 1];
     }
   },
   methods: {
@@ -131,8 +103,9 @@ export default {
       console.log("clickRight");
     },
     sendMessage() {
-      this.chatData[this.checkedNum]['messages'].push(this.inputText);
-      this.chatData[this.checkedNum]['lastMessage'] = this.chatData[this.checkedNum]['messages'][this.chatData[this.checkedNum]['messages'].length - 1];
+      this.chatData[this.checkedNum]['chatNames'].push("홍길동");
+      this.chatData[this.checkedNum]['chatLogs'].push(this.inputText);
+      this.chatData[this.checkedNum]['lastMessage'] = this.chatData[this.checkedNum]['chatLogs'][this.chatData[this.checkedNum]['chatLogs'].length - 1];
       this.inputText = "";
     }
   }
@@ -265,13 +238,16 @@ export default {
   margin-top: 80px;
   padding: 5px 15px;
 }
-
-#content_message>* {
+#content_message>#chatname{
+  margin: 0 2px ;
+}
+#content_message>#chatlog {
   font-size: 15px;
   border-radius: 20px;
   background-color: rgba(255, 176, 176, 0.61);
   width: 250px;
   padding: 15px 20px;
+  margin: 15px 0px;
 }
 
 #content_input {
